@@ -52,6 +52,8 @@
     <Compile Include="AddEditForm.Designer.cs">
       <DependentUpon>AddEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\NoteModel.cs" />
+    <Compile Include="Services\NoteService.cs" />
     <Compile Include="TopForm.cs">
       <SubType>Form</SubType>
     </Compile>

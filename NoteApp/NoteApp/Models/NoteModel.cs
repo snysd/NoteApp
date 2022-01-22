@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace NoteApp.Models
 {
-    class NoteModel
+    class Note
     {
+        public int id;
+        public string title;
+        public string date;
+        public string user;
+        public string body;
     }
 }
