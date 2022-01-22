@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteApp.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace NoteApp
 {
     public partial class TopForm : Form
     {
+        NoteService noteService = new NoteService();
         public TopForm()
         {
             InitializeComponent();
@@ -45,14 +47,13 @@ namespace NoteApp
         {
             // ListViewコントロールのデータをすべて消去します。
             listViewNote.Items.Clear();
-
-            // ListViewコントロールにデータを追加します。
-            string[] item1 = { "外郎売PT.1", "2022/01/01", "田中", "拙者親方と申すは、お立会いの内に" };
-            listViewNote.Items.Add(new ListViewItem(item1));
-            string[] item2 = { "外郎売PT.2", "2022/02/01", "加藤", "ご存じのお方もござりましょうが、" };
-            listViewNote.Items.Add(new ListViewItem(item2));
-            string[] item3 = { "外郎売PT.3", "2022/03/01", "佐藤", "お江戸をたってにじゅうりかみがた、" };
-            listViewNote.Items.Add(new ListViewItem(item3));
+            var notes = noteService.notes;
+            foreach (var note in notes)
+            {
+                // ToDo 「…」入れるようにする。
+                string[] item = { note.title, note.date,note.user,note.body.Substring(0,15) };
+                listViewNote.Items.Add(new ListViewItem(item));
+            }
         }
 
         private void TopForm_Load(object sender, EventArgs e)
