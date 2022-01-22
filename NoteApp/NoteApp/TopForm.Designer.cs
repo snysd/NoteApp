@@ -53,6 +53,7 @@ namespace NoteApp
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "新規";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttonEdit
             // 

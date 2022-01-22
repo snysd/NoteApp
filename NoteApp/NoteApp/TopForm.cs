@@ -60,5 +60,11 @@ namespace NoteApp
             InitializeListView();
             RefreshListView();
         }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            AddEditForm addEditForm = new AddEditForm();
+            addEditForm.ShowDialog();
+        }
     }
 }
