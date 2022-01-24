@@ -64,7 +64,7 @@ namespace NoteApp
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            AddEditForm addEditForm = new AddEditForm();
+            AddEditForm addEditForm = new AddEditForm(true);
             addEditForm.ShowDialog();
         }
     }
