@@ -96,6 +96,7 @@ namespace NoteApp
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "保存";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 

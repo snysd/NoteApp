@@ -13,7 +13,6 @@ namespace NoteApp.Services
 
         public NoteService()
         {
-
             string[] item1 = { "外郎売PT.1", "2022/01/01", "田中", "拙者親方と申すは、お立会いの内にうううううううううううううううううううううう" };
             string[] item2 = { "外郎売PT.2", "2022/02/01", "加藤", "ご存じのお方もござりましょうが、いいいいいいいいいいいいいいいいいいいいいいい" };
             string[] item3 = { "外郎売PT.3", "2022/03/01", "佐藤", "お江戸をたってにじゅうりかみがた、あああああああああああああああああああああああ" };
@@ -33,6 +32,24 @@ namespace NoteApp.Services
                 i++;
                 notes.Add(note);
             }
+        }
+
+        // 現在保持しているnoteのIDが最も大きい値を計算
+        private int GetMaxId()
+        {
+            List<int> Ids = new List<int>();
+            foreach (Note note in notes)
+            {
+                Ids.Add(note.id);
+            }
+            Ids.Reverse();
+            return Ids[0];
+        }
+
+        public void AddNote(Note note)
+        {
+            note.id = (GetMaxId() + 1);
+            notes.Add(note);
         }
     }
 }

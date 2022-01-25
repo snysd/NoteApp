@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoteApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,22 @@ namespace NoteApp
 {
     public partial class AddEditForm : Form
     {
-        public AddEditForm()
+        bool addMode;
+        public Note note;
+        public AddEditForm(bool addMode)
         {
+            this.addMode = addMode;
             InitializeComponent();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            note = new Note();
+            note.title = textBoxTitle.Text;
+            note.date = DateTime.Now.ToString();
+            note.user = textBoxName.Text;
+            note.body = textBoxBody.Text;
+            this.Close();
         }
     }
 }
