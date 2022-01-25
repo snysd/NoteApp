@@ -65,6 +65,18 @@ namespace NoteApp
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             AddEditForm addEditForm = new AddEditForm(true);
+            addEditForm.FormClosed += (closedSender, closedE) =>
+            {
+                // ✕ボタンでEditFormが終了される可能性がある
+                if (addEditForm.note == null) return;
+                // AddEditFormから追加対象のNoteを取得
+                var note = addEditForm.note;
+                // NoteServiceに追加依頼
+                noteService.AddNote(note);
+                // ListViewの更新
+                RefreshListView();
+            };
+
             addEditForm.ShowDialog();
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NoteApp.Models
 {
-    class Note
+    public class Note
     {
         public int id;
         public string title;

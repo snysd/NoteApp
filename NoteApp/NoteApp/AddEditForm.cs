@@ -14,6 +14,7 @@ namespace NoteApp
     public partial class AddEditForm : Form
     {
         bool addMode;
+        public Note note;
         public AddEditForm(bool addMode)
         {
             this.addMode = addMode;
@@ -22,7 +23,7 @@ namespace NoteApp
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            Note note = new Note();
+            note = new Note();
             note.title = textBoxTitle.Text;
             note.date = DateTime.Now.ToString();
             note.user = textBoxName.Text;
