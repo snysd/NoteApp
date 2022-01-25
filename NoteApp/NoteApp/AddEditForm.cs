@@ -30,5 +30,10 @@ namespace NoteApp
             note.body = textBoxBody.Text;
             this.Close();
         }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
