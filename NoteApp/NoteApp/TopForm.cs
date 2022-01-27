@@ -88,9 +88,9 @@ namespace NoteApp
             ListViewItem itemx = listViewNote.SelectedItems[0];
 
             // 選択されているタスクをID検索
-            var matchedTask = noteService.GetNoteByName(itemx.Text);       // for explain: port to service class
-            if (matchedTask == null) return;
-            addEditForm.currentTargetNote = matchedTask;
+            var matchedNote = noteService.GetNoteByName(itemx.Text);       // for explain: port to service class
+            if (matchedNote == null) return;
+            addEditForm.currentTargetNote = matchedNote;
 
             //addEditForm.FormClosed += (closedSender, closedE) =>
             //{

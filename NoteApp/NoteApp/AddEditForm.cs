@@ -23,7 +23,7 @@ namespace NoteApp
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            currentTargetNote = new Note();
+            if (addMode == true) currentTargetNote = new Note();
             currentTargetNote.title = textBoxTitle.Text;
             currentTargetNote.date = DateTime.Now.ToString();
             currentTargetNote.user = textBoxName.Text;
