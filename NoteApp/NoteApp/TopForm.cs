@@ -68,14 +68,41 @@ namespace NoteApp
             addEditForm.FormClosed += (closedSender, closedE) =>
             {
                 // ✕ボタンでEditFormが終了される可能性がある
-                if (addEditForm.note == null) return;
+                if (addEditForm.currentTargetNote == null) return;
                 // AddEditFormから追加対象のNoteを取得
-                var note = addEditForm.note;
+                var note = addEditForm.currentTargetNote;
                 // NoteServiceに追加依頼
                 noteService.AddNote(note);
                 // ListViewの更新
                 RefreshListView();
             };
+
+            addEditForm.ShowDialog();
+        }
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            AddEditForm addEditForm = new AddEditForm(false);
+            
+            // 編集対象は選択されている最初のタスク
+            ListViewItem itemx = listViewNote.SelectedItems[0];
+
+            // 選択されているタスクをID検索
+            var matchedTask = noteService.GetNoteByName(itemx.Text);       // for explain: port to service class
+            if (matchedTask == null) return;
+            addEditForm.currentTargetNote = matchedTask;
+
+            //addEditForm.FormClosed += (closedSender, closedE) =>
+            //{
+            //    // ✕ボタンでEditFormが終了される可能性がある
+            //    if (addEditForm.note == null) return;
+            //    // AddEditFormから追加対象のNoteを取得
+            //    var note = addEditForm.note;
+            //    // NoteServiceに追加依頼
+            //    noteService.AddNote(note);
+            //    // ListViewの更新
+            //    RefreshListView();
+            //};
 
             addEditForm.ShowDialog();
         }

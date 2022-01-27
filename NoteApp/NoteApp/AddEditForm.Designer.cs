@@ -123,6 +123,7 @@ namespace NoteApp
             this.Controls.Add(this.textBoxTitle);
             this.Name = "AddEditForm";
             this.Text = "AddEditForm";
+            this.Load += new System.EventHandler(this.AddEditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -51,5 +51,18 @@ namespace NoteApp.Services
             note.id = (GetMaxId() + 1);
             notes.Add(note);
         }
+        public Note GetNoteByName(string title)
+        {
+            Note matchedNote = null;
+            foreach (Note note in notes)
+            {
+                if (title == note.title)
+                {
+                    matchedNote = note;
+                    break;
+                }
+            }
+            return matchedNote;
+        }
     }
 }
