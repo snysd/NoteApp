@@ -51,5 +51,37 @@ namespace NoteApp.Services
             note.id = (GetMaxId() + 1);
             notes.Add(note);
         }
+        public Note GetNoteByName(string title)
+        {
+            Note matchedNote = null;
+            foreach (Note note in notes)
+            {
+                if (title == note.title)
+                {
+                    matchedNote = note;
+                    break;
+                }
+            }
+            return matchedNote;
+        }
+        public void UpdateNote(Note editedNote)
+        {
+            int i = 0;
+            int matchedIndex = -1;
+            foreach (Note note in notes)
+            {
+                if (editedNote.id == note.id)
+                {
+                    matchedIndex = i;
+                    break;
+                }
+                i++;
+            }
+            if (matchedIndex < 0)
+            {
+                return;
+            }
+            notes[matchedIndex] = editedNote;
+        }
     }
 }

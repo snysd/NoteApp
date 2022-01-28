@@ -63,6 +63,7 @@ namespace NoteApp
             this.buttonEdit.TabIndex = 2;
             this.buttonEdit.Text = "編集";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonDelete
             // 

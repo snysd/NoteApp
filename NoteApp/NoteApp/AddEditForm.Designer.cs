@@ -92,7 +92,7 @@ namespace NoteApp
             // 
             this.buttonSave.Location = new System.Drawing.Point(16, 394);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(96, 44);
             this.buttonSave.TabIndex = 6;
             this.buttonSave.Text = "保存";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -102,7 +102,7 @@ namespace NoteApp
             // 
             this.buttonCancel.Location = new System.Drawing.Point(127, 393);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 45);
             this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "キャンセル";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -123,6 +123,7 @@ namespace NoteApp
             this.Controls.Add(this.textBoxTitle);
             this.Name = "AddEditForm";
             this.Text = "AddEditForm";
+            this.Load += new System.EventHandler(this.AddEditForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
