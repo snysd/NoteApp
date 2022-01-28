@@ -82,6 +82,9 @@ namespace NoteApp
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
+            // 選択しているタスクがなかったら何もしない
+            if (listViewNote.SelectedItems.Count == 0) return;
+
             AddEditForm addEditForm = new AddEditForm(false);
             
             // 編集対象は選択されている最初のタスク
@@ -92,17 +95,17 @@ namespace NoteApp
             if (matchedNote == null) return;
             addEditForm.currentTargetNote = matchedNote;
 
-            //addEditForm.FormClosed += (closedSender, closedE) =>
-            //{
-            //    // ✕ボタンでEditFormが終了される可能性がある
-            //    if (addEditForm.note == null) return;
-            //    // AddEditFormから追加対象のNoteを取得
-            //    var note = addEditForm.note;
-            //    // NoteServiceに追加依頼
-            //    noteService.AddNote(note);
-            //    // ListViewの更新
-            //    RefreshListView();
-            //};
+            addEditForm.FormClosed += (closedSender, closedE) =>
+            {
+                // ✕ボタンでEditFormが終了される可能性がある
+                if (addEditForm.currentTargetNote == null) return;
+                // AddEditFormから追加対象のNoteを取得
+                var note = addEditForm.currentTargetNote;
+                // NoteServiceに更新依頼
+                noteService.UpdateNote(note);
+                // ListViewの更新
+                RefreshListView();
+            };
 
             addEditForm.ShowDialog();
         }
