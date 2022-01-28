@@ -23,6 +23,20 @@ namespace NoteApp
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            List<TextBox> contents = new List<TextBox>() { textBoxTitle, textBoxName, textBoxBody };
+            foreach(var content in contents)
+            {
+                if( content.Text == "" )
+                {
+                    MessageBox.Show(
+                        "全ての入力欄を記述してください", 
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
+            }
             if (addMode == true) currentTargetNote = new Note();
             currentTargetNote.title = textBoxTitle.Text;
             currentTargetNote.date = DateTime.Now.ToString();
