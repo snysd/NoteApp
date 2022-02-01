@@ -64,6 +64,20 @@ namespace NoteApp.Services
             }
             return matchedNote;
         }
+
+        public List<Note> GetNotesByNames(List<string> names)
+        {
+            List<Note> targetNotes = new List<Note>();      // whichi is for delete.
+
+            // if current task contains selected task's id, update taegetTasks.
+            foreach (string name in names)
+            {
+                var matchedNote = GetNoteByName(name);
+                targetNotes.Add(matchedNote);
+            }
+            return targetNotes;
+        }
+
         public void UpdateNote(Note editedNote)
         {
             int i = 0;
@@ -82,6 +96,15 @@ namespace NoteApp.Services
                 return;
             }
             notes[matchedIndex] = editedNote;
+        }
+
+        // Noteの削除
+        public void RemoveNotes(List<Note> targetNotes)
+        {
+            foreach (Note targetNote in targetNotes)
+            {
+                notes.Remove(targetNote);
+            }
         }
     }
 }

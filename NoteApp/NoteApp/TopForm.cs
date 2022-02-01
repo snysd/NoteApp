@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.ListView;
 
 namespace NoteApp
 {
@@ -108,6 +109,40 @@ namespace NoteApp
             };
 
             addEditForm.ShowDialog();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            // If no selected, do nothing.
+            if (listViewNote.SelectedItems.Count == 0) return;
+
+            // create target ids for remove
+            SelectedListViewItemCollection selectedItems = listViewNote.SelectedItems;
+            List<string> targetNames = new List<string>();
+            string dispStr = "";
+            foreach (ListViewItem item in selectedItems)
+            {
+                targetNames.Add(item.Text);
+                dispStr = dispStr + item.Text + ", ";
+            }
+            DialogResult result = MessageBox.Show(
+                $"以下のメモを削除します。\n{dispStr}",
+                "確認",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+
+            var targetNotes = noteService.GetNotesByNames(targetNames);
+            if (targetNotes == null || targetNotes.Count == 0) return;
+
+            // get remove notes
+            noteService.RemoveNotes(targetNotes);
+            RefreshListView();
         }
     }
 }
