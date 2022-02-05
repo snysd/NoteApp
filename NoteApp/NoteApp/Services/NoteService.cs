@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NoteApp.Services
 {
-    class NoteService
+    public class NoteService
     {
         public List<Note> notes = new List<Note>();
 

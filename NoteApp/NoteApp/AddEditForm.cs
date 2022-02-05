@@ -1,4 +1,5 @@
 ﻿using NoteApp.Models;
+using NoteApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +15,12 @@ namespace NoteApp
     public partial class AddEditForm : Form
     {
         bool addMode;
+        NoteService noteService;
         public Note currentTargetNote;
-        public AddEditForm(bool addMode)
+        public AddEditForm(bool addMode, NoteService noteService)
         {
             this.addMode = addMode;
+            this.noteService = noteService;
             InitializeComponent();
         }
 
@@ -37,13 +40,39 @@ namespace NoteApp
                     return;
                 }
             }
-
+            // 同じ名前のNoteを作成させない
+            if (addMode == true)
+            {
+                if (IsShowSameNameFileError() == true) return;
+            }
+            else
+            {
+                if (currentTargetNote.title != textBoxTitle.Text)
+                {
+                    if (IsShowSameNameFileError() == true) return;
+                }
+            }
             if (addMode == true) currentTargetNote = new Note();
             currentTargetNote.title = textBoxTitle.Text;
             currentTargetNote.date = DateTime.Now.ToString();
             currentTargetNote.user = textBoxName.Text;
             currentTargetNote.body = textBoxBody.Text;
             this.Close();
+        }
+
+        private bool IsShowSameNameFileError()
+        {
+            if (noteService.GetNoteByName(textBoxTitle.Text) != null)
+            {
+                MessageBox.Show(
+                    "同じ名前のメモは作成できません",
+                    "エラー",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return true;
+            }
+            return false;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
