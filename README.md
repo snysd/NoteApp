@@ -1,5 +1,4 @@
 # NoteAppGuide
-**This text is _extremely_ important**
 *****
 ## 概要
 このアプリはメモ帳アプリです。  
