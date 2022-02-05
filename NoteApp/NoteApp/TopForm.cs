@@ -67,24 +67,14 @@ namespace NoteApp
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            AddEditForm addEditForm = new AddEditForm(true);
+            AddEditForm addEditForm = new AddEditForm(true,noteService);
             addEditForm.FormClosed += (closedSender, closedE) =>
             {
                 // ✕ボタンでEditFormが終了される可能性がある
                 if (addEditForm.currentTargetNote == null) return;
                 // AddEditFormから追加対象のNoteを取得
                 var note = addEditForm.currentTargetNote;
-                // 同じ名前のNoteを作成させない
-                if (noteService.GetNoteByName(note.title) != null)
-                {
-                    MessageBox.Show(
-                        "同じ名前のメモは作成できません",
-                        "エラー",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                    return; // 作成したNoteが消えてしまう
-                }
+
                 // NoteServiceに追加依頼
                 noteService.AddNote(note);
                 // ListViewの更新
@@ -99,7 +89,7 @@ namespace NoteApp
             // 選択しているタスクがなかったら何もしない
             if (listViewNote.SelectedItems.Count == 0) return;
 
-            AddEditForm addEditForm = new AddEditForm(false);
+            AddEditForm addEditForm = new AddEditForm(false, noteService);
             
             // 編集対象は選択されている最初のタスク
             ListViewItem itemx = listViewNote.SelectedItems[0];
