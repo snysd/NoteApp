@@ -83,6 +83,7 @@ namespace NoteApp
             this.buttonExport.TabIndex = 4;
             this.buttonExport.Text = "出力";
             this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // TopForm
             // 

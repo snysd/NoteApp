@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.ListView;
+using NoteApp.Models;
+using System.IO;
 
 namespace NoteApp
 {
@@ -52,7 +54,7 @@ namespace NoteApp
             foreach (var note in notes)
             {
                 // ToDo 「…」入れるようにする。
-                string[] item = { note.title, note.date,note.user,note.body.Substring(0,15) };
+                string[] item = { note.title, note.date,note.user,note.body.Substring(0,15) }; // 本文が15文字未満だとエラーになる
                 listViewNote.Items.Add(new ListViewItem(item));
             }
         }
@@ -72,6 +74,17 @@ namespace NoteApp
                 if (addEditForm.currentTargetNote == null) return;
                 // AddEditFormから追加対象のNoteを取得
                 var note = addEditForm.currentTargetNote;
+                // 同じ名前のNoteを作成させない
+                if (noteService.GetNoteByName(note.title) != null)
+                {
+                    MessageBox.Show(
+                        "同じ名前のメモは作成できません",
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return; // 作成したNoteが消えてしまう
+                }
                 // NoteServiceに追加依頼
                 noteService.AddNote(note);
                 // ListViewの更新
@@ -91,7 +104,7 @@ namespace NoteApp
             // 編集対象は選択されている最初のタスク
             ListViewItem itemx = listViewNote.SelectedItems[0];
 
-            // 選択されているタスクをID検索
+            // 選択されている行の名前検索
             var matchedNote = noteService.GetNoteByName(itemx.Text);       // for explain: port to service class
             if (matchedNote == null) return;
             addEditForm.currentTargetNote = matchedNote;
@@ -116,33 +129,66 @@ namespace NoteApp
             // If no selected, do nothing.
             if (listViewNote.SelectedItems.Count == 0) return;
 
-            // create target ids for remove
+            // create target note for remove
             SelectedListViewItemCollection selectedItems = listViewNote.SelectedItems;
             List<string> targetNames = new List<string>();
             string dispStr = "";
             foreach (ListViewItem item in selectedItems)
             {
                 targetNames.Add(item.Text);
-                dispStr = dispStr + item.Text + ", ";
+                dispStr = dispStr + "・" + item.Text + $"\n";
             }
             DialogResult result = MessageBox.Show(
-                $"以下のメモを削除します。\n{dispStr}",
+                $"以下のメモを削除しますか？\n{dispStr}",
                 "確認",
                 MessageBoxButtons.OKCancel,
                 MessageBoxIcon.Question
             );
-
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
+            if (result == DialogResult.Cancel) return;
 
             var targetNotes = noteService.GetNotesByNames(targetNames);
             if (targetNotes == null || targetNotes.Count == 0) return;
-
             // get remove notes
             noteService.RemoveNotes(targetNotes);
             RefreshListView();
+        }
+
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            // 選択しているタスクがなかったら何もしない
+            if (listViewNote.SelectedItems.Count == 0) return;
+
+            // 編集対象は選択されている最初のタスク
+            ListViewItem itemx = listViewNote.SelectedItems[0];
+
+            // 選択されている行の名前検索
+            var matchedNote = noteService.GetNoteByName(itemx.Text);       // for explain: port to service class
+            if (matchedNote == null) return;
+            SaveFile(matchedNote);
+
+        }
+
+        private void SaveFile(Note matchedNote)
+        {
+            //SaveFileDialogクラスのインスタンスを作成
+            SaveFileDialog sfd = new SaveFileDialog();
+            //はじめに「ファイル名」で表示される文字列を指定する
+            sfd.FileName = $"{matchedNote.title}.txt";
+            //はじめに表示されるフォルダを指定する
+            sfd.InitialDirectory = @"C:\";
+            //[ファイルの種類]に表示される選択肢を指定する
+            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
+            sfd.Filter = "テキスト ファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*";
+            //タイトルを設定する
+            sfd.Title = "保存先のファイルを選択してください";
+            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
+            sfd.RestoreDirectory = true;
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, matchedNote.body);
+            }
         }
     }
 }
