@@ -12,10 +12,8 @@
 ## 画面案  
 ### トップ画面  
 ![image](https://user-images.githubusercontent.com/92729088/152624961-f0851178-23cb-491b-91c0-3298d0ea3d87.png)
-![image](https://user-images.githubusercontent.com/92729088/148949441-36fe3e6b-7e70-4c4e-85d2-79ffda6a45cb.png)
 ### 編集・追加画面  
 ![image](https://user-images.githubusercontent.com/92729088/152625007-f3e3bd7e-c8c3-4783-aee6-b4350c5c0115.png)
-![image](https://user-images.githubusercontent.com/92729088/148949327-0165303a-e873-49fd-a467-f6278a06c45b.png)
 ## 処理詳細  
 ### 初期化処理  
 1. イニファイルを読み込んで、メモ一覧DBの取得URLを保持する。
