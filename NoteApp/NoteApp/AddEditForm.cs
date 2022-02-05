@@ -37,6 +37,7 @@ namespace NoteApp
                     return;
                 }
             }
+
             if (addMode == true) currentTargetNote = new Note();
             currentTargetNote.title = textBoxTitle.Text;
             currentTargetNote.date = DateTime.Now.ToString();

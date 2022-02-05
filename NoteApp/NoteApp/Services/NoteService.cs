@@ -67,9 +67,9 @@ namespace NoteApp.Services
 
         public List<Note> GetNotesByNames(List<string> names)
         {
-            List<Note> targetNotes = new List<Note>();      // whichi is for delete.
+            List<Note> targetNotes = new List<Note>();
 
-            // if current task contains selected task's id, update taegetTasks.
+            // if current note contains selected note's name, update targetNotes.
             foreach (string name in names)
             {
                 var matchedNote = GetNoteByName(name);
