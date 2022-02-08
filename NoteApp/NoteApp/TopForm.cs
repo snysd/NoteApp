@@ -11,12 +11,15 @@ using System.Windows.Forms;
 using static System.Windows.Forms.ListView;
 using NoteApp.Models;
 using System.IO;
+using NoteApp.UtilityClasses;
 
 namespace NoteApp
 {
     public partial class TopForm : Form
     {
         NoteService noteService = new NoteService();
+        private ListViewColumnSorter _columnSorter;
+
         public TopForm()
         {
             InitializeComponent();
@@ -61,6 +64,9 @@ namespace NoteApp
 
         private void TopForm_Load(object sender, EventArgs e)
         {
+            _columnSorter = new ListViewColumnSorter();
+            listViewNote.ListViewItemSorter = _columnSorter;
+
             InitializeListView();
             RefreshListView();
         }
@@ -179,6 +185,27 @@ namespace NoteApp
             {
                 File.WriteAllText(sfd.FileName, matchedNote.body);
             }
+        }
+
+        private void listViewNote_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == _columnSorter.SortColumn)
+            {
+                if (_columnSorter.Order == SortOrder.Ascending)
+                {
+                    _columnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    _columnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                _columnSorter.SortColumn = e.Column;
+                _columnSorter.Order = SortOrder.Ascending;
+            }
+            listViewNote.Sort();
         }
     }
 }

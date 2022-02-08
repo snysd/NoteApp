@@ -42,8 +42,10 @@ namespace NoteApp
             this.listViewNote.Location = new System.Drawing.Point(12, 12);
             this.listViewNote.Name = "listViewNote";
             this.listViewNote.Size = new System.Drawing.Size(776, 374);
+            this.listViewNote.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listViewNote.TabIndex = 0;
             this.listViewNote.UseCompatibleStateImageBehavior = false;
+            this.listViewNote.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewNote_ColumnClick);
             // 
             // buttonAdd
             // 
