@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 
 namespace NoteApp
 {
-    public partial class AddEditForm : Form
+    public partial class AddEditForm : MetroForm
     {
         bool addMode;
         NoteService noteService;
@@ -26,7 +27,7 @@ namespace NoteApp
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            List<TextBox> contents = new List<TextBox>() { textBoxTitle, textBoxName, textBoxBody };
+            List<MetroFramework.Controls.MetroTextBox> contents = new List<MetroFramework.Controls.MetroTextBox>() { textBoxTitle, textBoxName, textBoxBody };
             foreach(var content in contents)
             {
                 if( content.Text == "" )
