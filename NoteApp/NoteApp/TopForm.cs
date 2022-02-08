@@ -12,10 +12,11 @@ using static System.Windows.Forms.ListView;
 using NoteApp.Models;
 using System.IO;
 using NoteApp.UtilityClasses;
+using MetroFramework.Forms;
 
 namespace NoteApp
 {
-    public partial class TopForm : Form
+    public partial class TopForm : MetroForm
     {
         NoteService noteService = new NoteService();
         private ListViewColumnSorter _columnSorter;
@@ -57,7 +58,8 @@ namespace NoteApp
             foreach (var note in notes)
             {
                 // ToDo 「…」入れるようにする。
-                string[] item = { note.title, note.date,note.user,note.body.Substring(0,15) }; // 本文が15文字未満だとエラーになる
+                string dispBody = note.body.Length > 15 ? note.body.Substring(0, 15) : note.body;
+                string[] item = { note.title, note.date,note.user,dispBody}; 
                 listViewNote.Items.Add(new ListViewItem(item));
             }
         }
