@@ -13,6 +13,10 @@ using NoteApp.Models;
 using System.IO;
 using NoteApp.UtilityClasses;
 using MetroFramework.Forms;
+using System.Net.Http;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NoteApp
 {
@@ -20,6 +24,7 @@ namespace NoteApp
     {
         NoteService noteService = new NoteService();
         private ListViewColumnSorter _columnSorter;
+
 
         public TopForm()
         {
