@@ -8,10 +8,11 @@ namespace NoteApp.Models
 {
     public class Note
     {
-        public int id;
-        public string title;
-        public string date;
-        public string user;
-        public string body;
+        public string id { get; set; }
+        public int alias { get; set; }
+        public string title { get; set; }
+        public string date { get; set; }
+        public string user { get; set; }
+        public string body { get; set; }
     }
 }
